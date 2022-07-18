@@ -1,0 +1,38 @@
+<!doctype>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.2.5/dist/web3.min.js"></script>
+<!-- script src="https://cdn.jsdelivr.net/npm/web3@0.20.5/dist/web3.min.js"></script -->
+<script type="text/javascript">
+    var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8345"));    
+    async function Even() {
+        const accounts = await web3.eth.getAccounts();
+        var even = new web3.eth.Contract([{"constant":true,"inputs":[],"name":"isEven","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"add","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"subtract","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getCounter","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}],
+                                            "0x4F543ab9971711354D3Fd774E52F6FF9e78F32Be"); 
+        even.methods.getCounter().call().then(function(str) {
+            document.getElementById('C1').innerText = "Before : " + str;
+        });
+        await even.methods.add().send({from:accounts[0],gas:100000});
+        await even.methods.add().send({from:accounts[0],gas:100000});
+        await even.methods.add().send({from:accounts[0],gas:100000});
+        await even.methods.add().send({from:accounts[0],gas:100000});
+        await even.methods.add().send({from:accounts[0],gas:100000});
+        even.methods.getCounter().call().then(function(str) {
+            document.getElementById('C2').innerText = "After : " + str;
+        });
+        even.methods.isEven().call().then(function(str) {
+            document.getElementById('C3').innerText = "isEven?? : " + str;
+        });
+        
+    }
+</script>
+</head>
+<body>
+    <h1>Hello</h1>
+    <button type="button" onClick="Even();">isEven??</button>
+    <div></div>
+    <div id="C1"></div>
+    <div id="C2"></div>
+    <div id="C3"></div>
+</body>
+</html>

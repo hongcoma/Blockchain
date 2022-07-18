@@ -1,0 +1,24 @@
+<!doctype>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.2.5/dist/web3.min.js"></script>
+<script type="text/javascript">
+    var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8345"));    
+    function displayMultiply() {
+        var Multiply7 = new web3.eth.Contract([{"constant":true,"inputs":[{"name":"input","type":"uint256"}],"name":"multiply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"pure","type":"function"}],
+                                            "0xC7AD8a72Eba115ed7a53AF738aAEe42f7A804A5e"); 
+        Multiply7.methods.multiply(8).call().then(function(str) {
+            document.getElementById('Multi').innerText = "result: "+ str;
+        });
+        
+        
+    }
+</script>
+</head>
+<body>
+    <h1>Hello</h1>
+    <button type="button" onClick="displayMultiply();">Display Multiply</button>
+    <div></div>
+    <div id="Multi"></div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+miner.setEtherbase(eth.accounts[0]);
+console.log("Q1. Block Number: ",eth.blockNumber);
+console.log("Q2. Enode: ",admin.nodeInfo.enode);
+console.log("Q3. PeerCount: ",net.peerCount, "Peers: ",admin.peers);
+console.log("Q4. Accounts: ",eth.accounts);
+console.log("Q5_1. Account1's Balance: ",web3.fromWei(eth.getBalance(eth.accounts[0])),"eth");
+console.log("Q5_1. Account2's Balance: ",web3.fromWei(eth.getBalance(eth.accounts[1])),"eth");
+console.log("Q5_1. Account3's Balance: ",web3.fromWei(eth.getBalance(eth.accounts[2])),"eth");
+console.log("Q6_1. Before CoinBase: ",eth.coinbase);
+miner.setEtherbase(eth.accounts[1]);
+console.log("Q6_2. After CoinBase: ",eth.coinbase);
+console.log("Q7. Transacton: ",txpool.status.queued," -->어떠한 거래도 발생하지 않았기 때문에 비어있음");
+console.log("Q8. Block Number: ",eth.blockNumber, " -->마이닝을 통한 블록생성이 이루어지지 않았기 때문에 변화없음");

@@ -1,0 +1,31 @@
+<!doctype>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.2.5/dist/web3.min.js"></script>
+<!-- script src="https://cdn.jsdelivr.net/npm/web3@0.20.5/dist/web3.min.js"></script -->
+<script type="text/javascript">
+    var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8345"));    
+    async function displayCounter() {
+        const accounts = await web3.eth.getAccounts();
+        var counter = new web3.eth.Contract([{"constant":false,"inputs":[],"name":"add","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"subtract","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getCounter","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}],
+                                            "0xC08d2Be97f49E9C653f86FFaca40131faB77f546"); 
+        counter.methods.getCounter().call().then(function(str) {
+            document.getElementById('C1').innerText = "Before : " + str;
+        });
+        await counter.methods.add().send({from:accounts[0],gas:100000});
+        await counter.methods.add().send({from:accounts[0],gas:100000});
+        counter.methods.getCounter().call().then(function(str) {
+            document.getElementById('C2').innerText = "After : " + str;
+        });
+        
+    }
+</script>
+</head>
+<body>
+    <h1>Hello</h1>
+    <button type="button" onClick="displayCounter();">Display Counter</button>
+    <div></div>
+    <div id="C1"></div>
+    <div id="C2"></div>
+</body>
+</html>
